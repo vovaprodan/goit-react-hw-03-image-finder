@@ -1,11 +1,18 @@
 import { Component } from "react";
-import {ImageGallery} from '../ImageGallery/ImageGallery'
+import { ImageGallery } from '../ImageGallery/ImageGallery';
+import Modal from '../Modal/Modal'
 
 class Api extends Component {
     state = {
         pictureNew: [],
-        loading: false,     
-}
+        loading: false,  
+         showModal: false
+    }
+    toggleModal = () => {
+    this.setState(({showModal})=> ({
+      showModal : !showModal,
+    }))
+  }
 
     componentDidUpdate(prevProp, prevState) {
         if (prevProp.picture !== this.props.picture) {
@@ -19,10 +26,11 @@ class Api extends Component {
 
 
     render() {
-        const {pictureNew, loading,} = this.state;
+        const { pictureNew, loading, showModal } = this.state;
         return <div>
             {loading && <div>загружаем</div>}
-            <ImageGallery pictureNew={pictureNew} />
+            <ImageGallery onToggle={this.toggleModal} pictureNew={pictureNew} />
+            {showModal && <Modal onClose={this.toggleModal} /> }
         </div>
     }
 }

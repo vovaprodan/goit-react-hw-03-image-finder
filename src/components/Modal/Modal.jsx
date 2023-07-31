@@ -1,10 +1,20 @@
 import { Component } from "react";
+import css from './Modal.module.css'
 
 
 class Modal extends Component {
+
+  componentDidMount() {
+    window.addEventListener('keydown', e => {
+      if (e.code === 'Escape') {
+        this.props.onClose()
+    }
+  })
+}
+
     render() {
-    return <div class="overlay">
-  <div class="modal">
+    return <div className={css.Overlay}>
+  <div className={css.Modal}>
     <img src="" alt="" />
   </div>
 </div>
